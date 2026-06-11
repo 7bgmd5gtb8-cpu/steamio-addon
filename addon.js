@@ -7,18 +7,21 @@ const builder = new addonBuilder({
     description: 'A basic addon for testing',
     resources: ['stream'],
     types: ['movie'],
-    idPrefixes: ['tt']
+    idPrefixes: ['tt'],
+    catalogs: []
 });
 
 builder.defineStreamHandler(function(args) {
     if (args.type === 'movie' && args.id === 'tt1254207') {
-        const stream = { 
-            url: 'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4' 
+        const stream = {
+            url: 'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4'
         };
         return Promise.resolve({ streams: [stream] });
     } else {
         return Promise.resolve({ streams: [] });
     }
 });
+
 const port = process.env.PORT || 7000;
 serveHTTP(builder.getInterface(), { port: port });
+
