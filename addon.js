@@ -1,6 +1,6 @@
 const { addonBuilder, serveHTTP } = require('stremio-addon-sdk');
 
-const builder = new addonBuilder({
+const manifest = {
     id: 'org.myexampleaddon',
     version: '1.0.0',
     name: 'Simple Example Addon',
@@ -8,8 +8,10 @@ const builder = new addonBuilder({
     resources: ['stream'],
     types: ['movie'],
     idPrefixes: ['tt'],
-    catalogs: [] // Must be here
-});
+    catalogs: [] // This is mandatory for Stremio
+};
+
+const builder = new addonBuilder(manifest);
 
 builder.defineStreamHandler(function(args) {
     if (args.type === 'movie' && args.id === 'tt1254207') {
@@ -22,6 +24,5 @@ builder.defineStreamHandler(function(args) {
     }
 });
 
-// This part is crucial for Railway
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 8080;
 serveHTTP(builder.getInterface(), { port: port });
