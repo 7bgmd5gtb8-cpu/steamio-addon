@@ -20,5 +20,5 @@ builder.defineStreamHandler(function(args) {
         return Promise.resolve({ streams: [] });
     }
 });
-
-serveHTTP(builder.getInterface(), { port: 7000 });
+const port = process.env.PORT || 7000;
+serveHTTP(builder.getInterface(), { port: port });
