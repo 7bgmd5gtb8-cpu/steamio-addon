@@ -8,7 +8,7 @@ const builder = new addonBuilder({
     resources: ['stream'],
     types: ['movie'],
     idPrefixes: ['tt'],
-    catalogs: []
+    catalogs: [] // Must be here
 });
 
 builder.defineStreamHandler(function(args) {
@@ -22,6 +22,6 @@ builder.defineStreamHandler(function(args) {
     }
 });
 
+// This part is crucial for Railway
 const port = process.env.PORT || 7000;
 serveHTTP(builder.getInterface(), { port: port });
-
